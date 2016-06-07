@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpandableLayout">
+        <attr name="expDuration" format="integer|reference"/>
+        <attr name="expWithParentScroll" format="boolean"/>
+        <attr name="expExpandScrollTogether" format="boolean"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">ExpandableLayout</string>
+    <string name="UsageOne">RecyclerView</string>
+    <string name="UsageTwo">ListView</string>
+    <string name="UsageThree">SimpleUse</string>
+
+    <string name="ezreal">Ezreal – the Prodigal Explorer </string>
+    <string name="ezreal_label">Primary role : Marksman (ADCarry)  \nSecondary role : Mage (Mid)</string>
+    <string name="ezreal_story">The intrepid young adventurer Ezreal has explored some of the most remote
+        and abandoned locations on Runeterra. During an expedition to the buried ruins of ancient Shurima,
+        he recovered an amulet of incredible mystical power. Likely constructed to be worn by one of the Ascended,
+        the enormous talisman nonetheless fit snugly upon his arm, amplifying his raw sorcerous skill to
+        such an extent that he\'s gained the reputation of a hero, much to his embarrassment.</string>
+    <string name="jinx">Jinx - the Loose Cannon</string>
+    <string name="jinx_label">Primary role : Marksman (ADCarry)  \nSecondary role : N/A</string>
+    <string name="jinx_story">Jinx lives to wreak havoc without a thought for consequence, leaving a trail
+        of mayhem and panic in her wake. A manic and impulsive criminal, she despises nothing more than boredom,
+        and gleefully unleashes her own volatile brand of pandemonium to the one place she finds dullest: Piltover.
+        With an arsenal of deadly toys, she unleashes the brightest explosions and loudest blasts - all the better
+        to shock and surprise the hapless authorities. Always just out of the law\'s reach, Jinx\'s favorite game
+        is to toy with Piltover\'s finest - especially Vi \n Piltover had long been known as the City of Progress,
+        a place where peace and order reigned. That serenity was challenged when a new kind of criminal arrived,
+        the likes of whom had never been seen. This mysterious outlaw unleashed a series of warped and destructive
+        capers that endangered the entire city, and left its people reeling from the worst crime spree in Piltover\'s history.</string>
+</resources>

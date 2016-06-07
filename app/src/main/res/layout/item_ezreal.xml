@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.silencedut.expandablelayout.ExpandableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:expWithParentScroll="true"
+    android:id="@+id/expandable_layout"
+    android:layout_gravity="center"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/firstLayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00bcd4"
+        >
+        <ImageView
+            android:layout_margin="5dp"
+            android:id="@+id/summoner_iv"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ezreal"
+            />
+
+        <TextView
+            android:id="@+id/summoner"
+            android:layout_toRightOf="@+id/summoner_iv"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/ezreal"
+            />
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_toRightOf="@+id/summoner_iv"
+            android:layout_below="@+id/summoner"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ezreal_label"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:text="Background"
+            />
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/summoner_story_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ezreal_story"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+</com.silencedut.expandablelayout.ExpandableLayout>

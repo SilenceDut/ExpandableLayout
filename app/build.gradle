@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+
+android {
+    def globalConfiguration = rootProject.ext.android
+    compileSdkVersion globalConfiguration.AndroidCompileSdkVersion
+    buildToolsVersion globalConfiguration.AndroidBuildToolsVersion
+
+    defaultConfig {
+        applicationId "com.silencedut.expandablelayout"
+        minSdkVersion globalConfiguration.AndridMinSdkVersion
+        targetSdkVersion globalConfiguration.AndroidTargetSdkVersion
+        versionCode globalConfiguration.versionCode
+        versionName globalConfiguration.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':library')
+    def googleDependencies = rootProject.ext.goodleDependencies
+    def otherDependencies = rootProject.ext.otherDependdencies
+    compile googleDependencies.appcompat_v7
+    compile googleDependencies.recyclerview_v7
+    compile googleDependencies.design
+    compile googleDependencies.support_v4
+    debugCompile otherDependencies.leakcanary_debug
+    releaseCompile otherDependencies.leakcanary_release
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support:support-annotations:23.4.0'
+}
