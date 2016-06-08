@@ -6,6 +6,21 @@ A expandable Layout to save space and  reduce jump between Activity and Fragment
 **_SimpleUse_**
 
 ![intro](media/simple_use.gif)
+
+**Use in RecyclerView**
+
+parent view  scroll automatically if the view expand  out of device screen
+(当展开时如果超过屏幕的高度是父控件自动上移)
+
+![intro](media/recyclerview_withParentScroll_together.gif)
+
+**Use in listView**
+
+parent view  not scroll automatically if the view expand  out of device screen
+(当展开时如果超过屏幕的高度是父控件不自动上移)
+
+![intro](media/listview_withoutParentScroll.gif)
+
 ####[sample.apk](https://github.com/SilenceDut/DayNightToggleButton/blob/master/apk/expandable.apk?raw=true) 
 (It runs smoothly, but gif is not appear well)
 Adding to your project
@@ -81,18 +96,6 @@ Basic Usage
 </com.silencedut.expandablelayout.ExpandableLayout>
 ```
 
-**Use in RecyclerView**
-
-_expWithParentScroll = "true"_
-app:expExpandScrollTogether = "false"
-
-![intro](media/recyclerview_withParentScroll_together.gif)
-
-**Use in listView**
-
-_expWithParentScroll = "false"_
-
-![intro](media/listview_withoutParentScroll.gif)
 
 License
 -------
