@@ -14,6 +14,7 @@ This library is available through JitPack.
 
 Step 1. Add the JitPack repository to your build file
 
+**gradle**
 ```groovy
 allprojects {
     repositories {
@@ -22,13 +23,32 @@ allprojects {
     }
 }
 ```
+**maven**
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
 
 Step 2. Add the dependency
+
+**gradle**
 
 ```groovy
 compile 'com.github.SilenceDut:ExpandableLayout:{latest-version}'
 ```
+**maven**
 
+```xml
+<dependency>
+    <groupId>com.github.SilenceDut</groupId>
+    <artifactId>ExpandableLayout</artifactId>
+    <version>{latest-version}</version>
+</dependency>
+```
 Basic Usage
 -----------
 **Supported Attributes**
