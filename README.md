@@ -23,8 +23,10 @@ parent view  not scroll automatically if the view expand  out of device screen
 
 ![intro](media/listview_withoutParentScroll.gif)
 
-####[sample.apk](https://github.com/SilenceDut/DayNightToggleButton/blob/master/apk/expandable.apk?raw=true) 
+
 (It runs smoothly, but gif is not appear well)
+[**sample.apk**](https://github.com/SilenceDut/DayNightToggleButton/blob/master/apk/expandable.apk?raw=true) 
+
 Adding to your project
 ----------------------
 This library is available through JitPack.
