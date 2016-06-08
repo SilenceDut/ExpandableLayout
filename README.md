@@ -33,16 +33,11 @@ Basic Usage
 -----------
 **Supported Attributes**
 
-- ***expDuration***
-expand duration
-
-- ***expWithParentScroll***
-parent view should scroll automatically if the view expand out of device screen
-（当展开时如果超过屏幕的高度是父控件否自动上移)
-
-- ***expExpandScrollTogether***
-parent view should scroll together with view expanding****
-
+|           attr        	|     default      |                         mean                          	 |
+|:------------------------- |:---------------- |:------------------------------------------------------- |
+| expDuration      	| 300            | expand duration.  |
+| expWithParentScroll   | false  | parent view should scroll automatically if the view expand  out of device screen（当展开时如果超过屏幕的高度是父控件否自动上移).   |
+| expExpandScrollTogether| false          | parent view should scroll together with view expanding. |
 **ExpandableLayout inherited from LinearLayout,and the default setOrientation is **VERTICAL****
 
 ```xml
