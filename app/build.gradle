@@ -5,14 +5,23 @@ android {
     compileSdkVersion globalConfiguration.AndroidCompileSdkVersion
     buildToolsVersion globalConfiguration.AndroidBuildToolsVersion
 
-    defaultConfig {
-        applicationId "com.silencedut.expandablelayout"
-        minSdkVersion globalConfiguration.AndridMinSdkVersion
-        targetSdkVersion globalConfiguration.AndroidTargetSdkVersion
-        versionCode globalConfiguration.versionCode
-        versionName globalConfiguration.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        defaultConfig {
+            applicationId "com.silencedut.expandablelayout"
+            minSdkVersion globalConfiguration.AndridMinSdkVersion
+            targetSdkVersion globalConfiguration.AndroidTargetSdkVersion
+            versionCode globalConfiguration.versionCode
+            versionName globalConfiguration.versionName
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        }
+
+        applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    rootDir.absolutePath+"/apk",
+                    "expandable.apk")
+        }
     }
+
     buildTypes {
         release {
             minifyEnabled false
