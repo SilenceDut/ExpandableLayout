@@ -1,7 +1,7 @@
 # ExpandableLayout
 
 A expandable Layout to save space and  reduce jump between Activity and Fragment
-[![](https://jitpack.io/v/SilenceDut/ExpandableLayout.svg)](https://jitpack.io/#SilenceDut/ExpandableLayout)
+####[![](https://jitpack.io/v/SilenceDut/ExpandableLayout.svg)](https://jitpack.io/#SilenceDut/ExpandableLayout)
 
 **_SimpleUse_**
 
@@ -33,13 +33,15 @@ Basic Usage
 -----------
 **Supported Attributes**
 
-```xml
-<declare-styleable name="ExpandableLayout">
-        <attr name="expDuration" format="integer|reference"/> //expand duration
-        <attr name="expWithParentScroll" format="boolean"/>  // the parent view should scroll automatically if the view expand out of device screen 
-        <attr name="expExpandScrollTogether" format="boolean"/> // the parent view should scroll together with view expanding 
-</declare-styleable>
-```
+- ***expDuration***
+expand duration
+
+- ***expWithParentScroll***
+parent view should scroll automatically if the view expand out of device screen
+（当展开时如果超过屏幕的高度是父控件否自动上移)
+
+- ***expExpandScrollTogether***
+parent view should scroll together with view expanding****
 
 **ExpandableLayout inherited from LinearLayout,and the default setOrientation is **VERTICAL****
 
