@@ -11,7 +11,7 @@ A expandable Layout to save space and  reduce jump between Activity and Fragment
 
 parent view  scroll automatically if the view expand  out of device screen
 
-(当展开时如果超过屏幕的高度是父控件自动上移)
+(当展开时如果超过屏幕的高度时父控件自动上移)
 
 ![intro](media/recyclerview_withParentScroll_together.gif)
 
@@ -19,7 +19,7 @@ parent view  scroll automatically if the view expand  out of device screen
 
 parent view  not scroll automatically if the view expand  out of device screen
 
-(当展开时如果超过屏幕的高度是父控件不自动上移)
+(当展开时如果超过屏幕的高度时父控件不自动上移)
 
 ![intro](media/listview_withoutParentScroll.gif)
 
