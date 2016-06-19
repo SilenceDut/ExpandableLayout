@@ -77,7 +77,7 @@ Basic Usage
 | expDuration      	| 300            | expand duration.  |
 | expWithParentScroll   | false  | parent view should scroll automatically if the view expand  out of device screen（当展开时如果超过屏幕的高度是父控件否自动上移).   |
 | expExpandScrollTogether| false          | parent view should scroll together with view expanding. |
-**ExpandableLayout inherited from LinearLayout,and the default setOrientation is **VERTICAL****
+**ExpandableLayout inherited from LinearLayout,and the default Orientation is VERTICAL**
 
 ```xml
 <com.silencedut.expandablelayout.ExpandableLayout
