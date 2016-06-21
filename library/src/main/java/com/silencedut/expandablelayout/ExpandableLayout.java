@@ -96,14 +96,9 @@ public class ExpandableLayout extends LinearLayout {
         final View target = getChildAt(1);
         mExpandAnimator = ValueAnimator.ofInt(startHeight,endHeight);
         mExpandAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            //private IntEvaluator intEvaluator = new IntEvaluator();
-            int lastHeight=0;
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int height = (int) animation.getAnimatedValue();
-                int scrollStep = height-lastHeight;
-                lastHeight=height;
-                target.getLayoutParams().height=height;
+                target.getLayoutParams().height= ( int) animation.getAnimatedValue();
                 target.requestLayout();
             }
         });
