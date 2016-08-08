@@ -3,14 +3,11 @@ package com.silencedut.expandablelayout;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.IntEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -22,7 +19,7 @@ import android.widget.LinearLayout;
 public class ExpandableLayout extends LinearLayout {
     private static final String TAG = ExpandableLayout.class.getSimpleName();
     private static final int EXPAND_DURATION = 300;
-    private final int PREINIT=-1;
+    private final int PRE_INIT =-1;
     private final int CLOSED=0;
     private final int EXPANDED=1;
     private final int EXPANDING=2;
@@ -55,7 +52,7 @@ public class ExpandableLayout extends LinearLayout {
         setOrientation(VERTICAL);
         this.setClipChildren(false);
         this.setClipToPadding(false);
-        mExpandState = PREINIT;
+        mExpandState = PRE_INIT;
         if(attrs!=null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ExpandableLayout);
             mExpandDuration = typedArray.getInt(R.styleable.ExpandableLayout_expDuration, EXPAND_DURATION);
@@ -155,7 +152,7 @@ public class ExpandableLayout extends LinearLayout {
     }
 
     public void setExpand(boolean expand) {
-        if(mExpandState==PREINIT) {
+        if(mExpandState== PRE_INIT) {
             return;
         }
         getChildAt(1).getLayoutParams().height=expand?mExpandedViewHeight:0;
