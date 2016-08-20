@@ -39,6 +39,7 @@ dependencies {
     compile googleDependencies.recyclerview_v7
     compile googleDependencies.design
     compile googleDependencies.support_v4
+    compile googleDependencies.cardview_v7
     debugCompile otherDependencies.leakcanary_debug
     releaseCompile otherDependencies.leakcanary_release
 

@@ -7,9 +7,11 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
 /**
@@ -135,7 +137,11 @@ public class ExpandableLayout extends LinearLayout {
     }
 
     private ValueAnimator parentScroll(final int distance) {
-        final ViewGroup mViewParent= (ViewGroup) getParent();
+        final ViewGroup mViewParent= getScrollAbleParent(this);
+        mParentAnimator = ValueAnimator.ofInt(0,distance);
+        if(mViewParent == null) {
+            return mParentAnimator;
+        }
         mParentAnimator = ValueAnimator.ofInt(0,distance);
         mParentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             int lastDy;
@@ -151,8 +157,20 @@ public class ExpandableLayout extends LinearLayout {
         return mExpandAnimator;
     }
 
+    private ViewGroup getScrollAbleParent(ViewGroup child) {
+        ViewGroup scolledParent= null;
+        while (child.getParent()!=null){
+
+            if((child.getParent() instanceof RecyclerView || child.getParent() instanceof AbsListView)) {
+                scolledParent = (ViewGroup ) child.getParent();
+            }
+            child = ( ViewGroup ) child.getParent();
+        }
+        return scolledParent;
+    }
+
     public void setExpand(boolean expand) {
-        if(mExpandState== PRE_INIT) {
+        if(mExpandState == PRE_INIT) {
             return;
         }
         getChildAt(1).getLayoutParams().height=expand?mExpandedViewHeight:0;
