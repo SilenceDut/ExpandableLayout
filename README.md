@@ -3,15 +3,19 @@
 A expandable Layout to save space and  reduce jump between Activity and Fragment
 ####[![](https://jitpack.io/v/SilenceDut/ExpandableLayout.svg)](https://jitpack.io/#SilenceDut/ExpandableLayout)
 
-**_SimpleUse_**
+**SimpleUse**
 
 ![intro](media/simple_use.gif)
+
+**Use in RecyclerView**
 
 parent view  scroll automatically if the view expand  out of device screen,
 
 (当展开时如果超过屏幕的高度时父控件自动上移)
 
 ![intro](media/recyclerview_withParentScroll_together.gif)
+
+**Use in ListView**
 
 parent view  not scroll automatically if the view expand  out of device screen
 
