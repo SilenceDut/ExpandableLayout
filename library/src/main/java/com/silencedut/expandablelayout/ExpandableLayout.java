@@ -6,13 +6,11 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.LinearLayout;
+
 
 /**
  * Created by SilenceDut on 16/6/6.
@@ -20,20 +18,17 @@ import android.widget.LinearLayout;
 
 public class ExpandableLayout extends LinearLayout {
     private static final String TAG = ExpandableLayout.class.getSimpleName();
-    private static final int EXPAND_DURATION = 300;
-    private final int PRE_INIT =-1;
-    private final int CLOSED=0;
-    private final int EXPANDED=1;
-    private final int EXPANDING=2;
-    private final int CLOSEING=3;
+
+    private Settings mSettings ;
     private int mExpandState;
     private ValueAnimator mExpandAnimator;
     private ValueAnimator mParentAnimator;
-    private int mExpandedViewHeight ;
-    private  boolean sIsInit = true;
-    private int mExpandDuration = EXPAND_DURATION;
-    private boolean mExpandWithParentScroll;
-    private boolean mExpandScrollTogether;
+    private AnimatorSet mExpandScrollAnimotorSet;
+    private  int mExpandedViewHeight;
+    private  boolean mIsInit = true;
+
+    private ScrolledParent mScrolledParent;
+
     private OnExpandListener mOnExpandListener;
     public ExpandableLayout(Context context) {
         super(context);
@@ -54,12 +49,13 @@ public class ExpandableLayout extends LinearLayout {
         setOrientation(VERTICAL);
         this.setClipChildren(false);
         this.setClipToPadding(false);
-        mExpandState = PRE_INIT;
+        mExpandState = ExpandState.PRE_INIT;
+        mSettings = new Settings();
         if(attrs!=null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ExpandableLayout);
-            mExpandDuration = typedArray.getInt(R.styleable.ExpandableLayout_expDuration, EXPAND_DURATION);
-            mExpandWithParentScroll = typedArray.getBoolean(R.styleable.ExpandableLayout_expWithParentScroll,false);
-            mExpandScrollTogether = typedArray.getBoolean(R.styleable.ExpandableLayout_expExpandScrollTogether,false);
+            mSettings.expandDuration = typedArray.getInt(R.styleable.ExpandableLayout_expDuration, Settings.EXPAND_DURATION);
+            mSettings.expandWithParentScroll = typedArray.getBoolean(R.styleable.ExpandableLayout_expWithParentScroll,false);
+            mSettings.expandScrollTogether = typedArray.getBoolean(R.styleable.ExpandableLayout_expExpandScrollTogether,true);
             typedArray.recycle();
         }
     }
@@ -71,27 +67,47 @@ public class ExpandableLayout extends LinearLayout {
         if(childCount!=2) {
             throw new IllegalStateException("ExpandableLayout must has two child view !");
         }
-        if(sIsInit) {
+        if(mIsInit) {
             ((MarginLayoutParams)getChildAt(0).getLayoutParams()).bottomMargin=0;
             MarginLayoutParams marginLayoutParams = ((MarginLayoutParams)getChildAt(1).getLayoutParams());
             marginLayoutParams.bottomMargin=0;
             marginLayoutParams.topMargin=0;
             marginLayoutParams.height = 0;
             mExpandedViewHeight = getChildAt(1).getMeasuredHeight();
-            sIsInit =false;
-            mExpandState = CLOSED;
+            mIsInit =false;
+            mExpandState = ExpandState.CLOSED;
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if(mSettings.expandWithParentScroll) {
+            mScrolledParent = Utils.getScrolledParent(this);
+        }
     }
 
+    private int getParentScrollDistance () {
+        int distance =0;
+
+        if(mScrolledParent==null) {
+            return distance;
+        }
+
+        distance = (int) (getY()+getMeasuredHeight()+mExpandedViewHeight-mScrolledParent.scrolledView.getMeasuredHeight());
+        for(int index =0;index<mScrolledParent.childBetweenParentCount;index++) {
+            ViewGroup parent = (ViewGroup) getParent();
+            distance+=parent.getY();
+        }
+
+        return distance;
+    }
+
+
     private void verticalAnimate(final int startHeight, final int endHeight ) {
-        final ViewGroup mViewParent= (ViewGroup) getParent();
-        int distance = (int) (getY()+getMeasuredHeight()+mExpandedViewHeight-mViewParent.getMeasuredHeight());
+        int distance = getParentScrollDistance();
+
         final View target = getChildAt(1);
         mExpandAnimator = ValueAnimator.ofInt(startHeight,endHeight);
         mExpandAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -101,91 +117,62 @@ public class ExpandableLayout extends LinearLayout {
                 target.requestLayout();
             }
         });
+
         mExpandAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 if(endHeight-startHeight<0) {
-                    mExpandState=CLOSED;
+                    mExpandState=ExpandState.CLOSED;
                     if(mOnExpandListener!=null) {
                         mOnExpandListener.onExpand(false);
                     }
                 }else {
-                    mExpandState=EXPANDED;
+                    mExpandState=ExpandState.EXPANDED;
                     if(mOnExpandListener!=null) {
                         mOnExpandListener.onExpand(true);
                     }
-
                 }
             }
         });
-        mExpandState=mExpandState==EXPANDED?CLOSEING:EXPANDING;
-        mExpandAnimator.setDuration(mExpandDuration);
-        if(mExpandState==EXPANDING&&mExpandWithParentScroll&&distance>0) {
-            mExpandAnimator = parentScroll(distance);
-            AnimatorSet animatorSet = new AnimatorSet();
-            if(mExpandScrollTogether) {
-                animatorSet.playSequentially(mExpandAnimator,mParentAnimator);
+
+        mExpandState=mExpandState==ExpandState.EXPANDED?ExpandState.CLOSING :ExpandState.EXPANDING;
+        mExpandAnimator.setDuration(mSettings.expandDuration);
+        if(mExpandState==ExpandState.EXPANDING&&mSettings.expandWithParentScroll&&distance>0) {
+
+            mParentAnimator = Utils.createParentAnimator(mScrolledParent.scrolledView,distance,mSettings.expandDuration);
+
+            mExpandScrollAnimotorSet = new AnimatorSet();
+
+            if(mSettings.expandScrollTogether) {
+                mExpandScrollAnimotorSet.playTogether(mExpandAnimator,mParentAnimator);
             }else {
-                animatorSet.playTogether(mExpandAnimator,mParentAnimator);
+                mExpandScrollAnimotorSet.playSequentially(mExpandAnimator,mParentAnimator);
             }
-            animatorSet.start();
+            mExpandScrollAnimotorSet.start();
+
         }else {
             mExpandAnimator.start();
         }
-
-    }
-
-    private ValueAnimator parentScroll(final int distance) {
-        final ViewGroup mViewParent= getScrollAbleParent(this);
-        mParentAnimator = ValueAnimator.ofInt(0,distance);
-        if(mViewParent == null) {
-            return mParentAnimator;
-        }
-        mParentAnimator = ValueAnimator.ofInt(0,distance);
-        mParentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            int lastDy;
-            int dy;
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                dy = (int)animation.getAnimatedValue()-lastDy;
-                lastDy = (int)animation.getAnimatedValue();
-                mViewParent.scrollBy(0,dy);
-            }
-        });
-        mParentAnimator.setDuration(mExpandDuration);
-        return mExpandAnimator;
-    }
-
-    private ViewGroup getScrollAbleParent(ViewGroup child) {
-        ViewGroup scolledParent= null;
-        while (child.getParent()!=null){
-
-            if((child.getParent() instanceof RecyclerView || child.getParent() instanceof AbsListView)) {
-                scolledParent = (ViewGroup ) child.getParent();
-            }
-            child = ( ViewGroup ) child.getParent();
-        }
-        return scolledParent;
     }
 
     public void setExpand(boolean expand) {
-        if(mExpandState == PRE_INIT) {
+        if(mExpandState == ExpandState.PRE_INIT) {
             return;
         }
         getChildAt(1).getLayoutParams().height=expand?mExpandedViewHeight:0;
         requestLayout();
-        mExpandState=expand?EXPANDED:CLOSED;
+        mExpandState=expand?ExpandState.EXPANDED:ExpandState.CLOSED;
     }
 
     public boolean isExpanded() {
-        return mExpandState==EXPANDED;
+        return mExpandState==ExpandState.EXPANDED;
     }
 
     public void toggle() {
-        if(mExpandState==EXPANDED) {
+        if(mExpandState==ExpandState.EXPANDED) {
             close();
-        }else if(mExpandState==CLOSED) {
+        }else if(mExpandState==ExpandState.CLOSED) {
             expand();
         }
     }
@@ -214,15 +201,15 @@ public class ExpandableLayout extends LinearLayout {
 
 
     public void setExpandScrollTogether(boolean expandScrollTogether) {
-        this.mExpandScrollTogether = expandScrollTogether;
+        this.mSettings.expandScrollTogether = expandScrollTogether;
     }
 
     public void setExpandWithParentScroll(boolean expandWithParentScroll) {
-        this.mExpandWithParentScroll = expandWithParentScroll;
+        this.mSettings.expandWithParentScroll = expandWithParentScroll;
     }
 
     public void setExpandDuration(int expandDuration) {
-        this.mExpandDuration = expandDuration;
+        this.mSettings.expandDuration = expandDuration;
     }
 
     @Override
@@ -233,6 +220,9 @@ public class ExpandableLayout extends LinearLayout {
         }
         if(mParentAnimator!=null&&mParentAnimator.isRunning()) {
             mParentAnimator.cancel();
+        }
+        if(mExpandScrollAnimotorSet!=null) {
+            mExpandScrollAnimotorSet.cancel();
         }
     }
 }

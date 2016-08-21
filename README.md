@@ -7,15 +7,11 @@ A expandable Layout to save space and  reduce jump between Activity and Fragment
 
 ![intro](media/simple_use.gif)
 
-**Use in RecyclerView**
-
-parent view  scroll automatically if the view expand  out of device screen
+parent view  scroll automatically if the view expand  out of device screen,
 
 (当展开时如果超过屏幕的高度时父控件自动上移)
 
 ![intro](media/recyclerview_withParentScroll_together.gif)
-
-**Use in listView**
 
 parent view  not scroll automatically if the view expand  out of device screen
 
@@ -23,9 +19,15 @@ parent view  not scroll automatically if the view expand  out of device screen
 
 ![intro](media/listview_withoutParentScroll.gif)
 
-
 (It runs smoothly, but gif is not appear well)
 [**sample.apk**](https://github.com/SilenceDut/DayNightToggleButton/blob/master/apk/expandable.apk?raw=true) 
+
+
+Attention
+---------
+**`scroll automatically `** function  not perform well in listview so far.but 
+it perform well in RecyclerView
+
 
 Adding to your project
 ----------------------
@@ -57,7 +59,7 @@ Step 2. Add the dependency
 **gradle**
 
 ```groovy
-compile 'com.github.SilenceDut:ExpandableLayout:{latest-version}'
+compile 'com.github.SilenceDut:ExpandableLayout:1.1.0'
 ```
 **maven**
 
