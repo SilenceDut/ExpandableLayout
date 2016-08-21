@@ -63,7 +63,7 @@ Step 2. Add the dependency
 **gradle**
 
 ```groovy
-compile 'com.github.SilenceDut:ExpandableLayout:1.1.0'
+compile 'com.github.SilenceDut:ExpandableLayout:1.2.0'
 ```
 **maven**
 
