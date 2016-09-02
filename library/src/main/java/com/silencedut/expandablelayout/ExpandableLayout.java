@@ -95,7 +95,8 @@ public class ExpandableLayout extends LinearLayout {
             return distance;
         }
 
-        distance = (int) (getY()+getMeasuredHeight()+mExpandedViewHeight-mScrolledParent.scrolledView.getMeasuredHeight());
+        distance = (int) (getY()+getMeasuredHeight()+mExpandedViewHeight
+                -mScrolledParent.scrolledView.getMeasuredHeight());
         for(int index =0;index<mScrolledParent.childBetweenParentCount;index++) {
             ViewGroup parent = (ViewGroup) getParent();
             distance+=parent.getY();
