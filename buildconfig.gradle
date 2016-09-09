@@ -1,16 +1,16 @@
 // model config file ,make app build.gradle clean
 ext {
     android = [
-            AndroidBuildToolsVersion : "23.0.3",
+            AndroidBuildToolsVersion : "24.0.2",
             AndridMinSdkVersion : 14,
             AndroidTargetSdkVersion : 23,
-            AndroidCompileSdkVersion : 23,
+            AndroidCompileSdkVersion : 24,
             versionCode:1,
             versionName:"1.0"
     ]
 
     //SupportVersion
-    googlesupportVersion="23.4.0"
+    googlesupportVersion="24.2.0"
 
     goodleDependencies =[
             appcompat_v7: "com.android.support:appcompat-v7:${googlesupportVersion}",
