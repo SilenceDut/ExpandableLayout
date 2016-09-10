@@ -14,12 +14,12 @@ import android.widget.AbsListView;
 class Utils {
 
      static ScrolledParent getScrolledParent (ViewGroup child) {
-        ScrolledParent scrolledParent;
+
         ViewParent parent= child.getParent();
         int childBetweenParentCount =0;
         while (parent!=null){
             if((parent instanceof RecyclerView || parent instanceof AbsListView)) {
-                scrolledParent = new ScrolledParent();
+                ScrolledParent scrolledParent = new ScrolledParent();
                 scrolledParent.scrolledView = (ViewGroup)parent;
                 scrolledParent.childBetweenParentCount =childBetweenParentCount;
                 return scrolledParent;
