@@ -44,6 +44,6 @@ dependencies {
     releaseCompile otherDependencies.leakcanary_release
 
     //compile 'com.github.SilenceDut:ExpandableLayout:1.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
 
 }
