@@ -4,7 +4,12 @@ A expandable Layout to save space and  reduce jump between Activity and Fragment
 ####[![](https://jitpack.io/v/SilenceDut/ExpandableLayout.svg)](https://jitpack.io/#SilenceDut/ExpandableLayout)
 
 
-**It had been used in project [KnowWeather](https://github.com/SilenceDut/KnowWeather),you can learn more.**
+USE
+----------------------
+
+**Project**
+
+It had been used in project [KnowWeather](https://github.com/SilenceDut/KnowWeather),you can learn more.
 
 **SimpleUse**
 
