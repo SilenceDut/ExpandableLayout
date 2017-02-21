@@ -218,9 +218,11 @@ public class ExpandableLayout extends LinearLayout {
         super.onDetachedFromWindow();
         if(mExpandAnimator!=null&&mExpandAnimator.isRunning()) {
             mExpandAnimator.cancel();
+            mExpandAnimator.removeAllUpdateListeners();
         }
         if(mParentAnimator!=null&&mParentAnimator.isRunning()) {
             mParentAnimator.cancel();
+            mParentAnimator.removeAllUpdateListeners();
         }
         if(mExpandScrollAnimotorSet!=null) {
             mExpandScrollAnimotorSet.cancel();
